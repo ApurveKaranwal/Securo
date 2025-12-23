@@ -1,0 +1,129 @@
+:root {
+    --bg: #030407;
+    --accent: #00f2ff;
+    --accent-glow: rgba(0, 242, 255, 0.4);
+    --glass: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --text: #ffffff;
+    --error: #ff4757;
+    --success: #00ffcc;
+}
+
+* { box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+body {
+    margin: 0; background: var(--bg); color: var(--text);
+    height: 100vh; overflow: hidden;
+    background-image: radial-gradient(circle at center, #0a1122 0%, #030407 100%);
+}
+
+.app-container { display: flex; height: 100vh; }
+
+/* Sidebar */
+.sidebar {
+    width: 260px; background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(20px); border-right: 1px solid var(--glass-border);
+    padding: 2rem; display: flex; flex-direction: column;
+}
+
+.logo {
+    display: flex; align-items: center; gap: 12px; font-weight: 800;
+    color: var(--accent); letter-spacing: 2px; margin-bottom: 3rem;
+}
+
+.nav-links { list-style: none; padding: 0; flex-grow: 1; }
+.nav-links li {
+    padding: 14px 18px; margin-bottom: 10px; cursor: pointer; border-radius: 12px;
+    display: flex; align-items: center; gap: 15px; transition: 0.3s; opacity: 0.5;
+}
+
+.nav-links li.active, .nav-links li:hover {
+    background: var(--glass); opacity: 1; color: var(--accent);
+}
+
+.health-indicator {
+    display: flex; align-items: center; padding-top: 20px;
+    border-top: 1px solid var(--glass-border); font-size: 0.8rem;
+}
+
+.status-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #444;
+    margin-right: 10px; box-shadow: 0 0 8px currentColor;
+}
+
+/* Main Content */
+.content { flex: 1; padding: 3rem; overflow-y: auto; }
+header { display: flex; justify-content: space-between; margin-bottom: 3rem; }
+
+.search-bar {
+    background: var(--glass); border: 1px solid var(--glass-border);
+    border-radius: 100px; padding: 12px 25px; display: flex;
+    align-items: center; width: 400px;
+}
+
+.search-bar input {
+    background: transparent; border: none; color: white;
+    outline: none; margin-left: 10px; width: 100%;
+}
+
+.header-actions { display: flex; gap: 15px; }
+
+/* Grid Cards */
+.password-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px;
+}
+
+.glass-card {
+    background: var(--glass); backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border); border-radius: 20px;
+    padding: 25px; transition: 0.3s;
+}
+
+.glass-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+
+.central-card { max-width: 500px; margin: 40px auto; }
+
+/* Buttons & Inputs */
+.btn-primary {
+    background: var(--accent); color: #000; border: none;
+    padding: 12px 24px; border-radius: 10px; font-weight: 700;
+    cursor: pointer; transition: 0.3s;
+}
+
+.btn-primary:hover { box-shadow: 0 0 20px var(--accent-glow); }
+
+.btn-secondary {
+    background: rgba(255,255,255,0.05); color: #fff;
+    border: 1px solid var(--glass-border); padding: 12px 24px;
+    border-radius: 10px; cursor: pointer;
+}
+
+.btn-rotate-small {
+    background: transparent; border: 1px solid rgba(255, 165, 0, 0.3);
+    color: #ffa500; font-size: 0.7rem; padding: 4px 8px;
+    border-radius: 4px; cursor: pointer;
+}
+
+/* Generator Display */
+.gen-display {
+    background: #000; padding: 25px; border-radius: 12px;
+    font-family: 'JetBrains Mono', monospace; font-size: 1.5rem;
+    color: var(--accent); text-align: center; margin-bottom: 25px;
+    border: 1px dashed var(--accent);
+}
+
+input[type="text"], input[type="email"], input[type="password"], input[type="number"] {
+    width: 100%; padding: 14px; background: rgba(0,0,0,0.3);
+    border: 1px solid var(--glass-border); border-radius: 10px;
+    color: white; margin-bottom: 15px;
+}
+
+/* Modals */
+.modal {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
+    z-index: 1000; justify-content: center; align-items: center;
+}
+
+.modal-content { width: 95%; max-width: 450px; }
+.modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }

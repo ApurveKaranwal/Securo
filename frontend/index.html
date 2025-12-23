@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Securo | Advanced Vault</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="app-container">
+        <nav class="sidebar">
+            <div class="logo">
+                <i data-lucide="shield-check"></i>
+                <span>SECURO</span>
+            </div>
+            <ul class="nav-links">
+                <li class="active" id="tab-vault" onclick="showSection('vault')"><i data-lucide="lock"></i> Vault</li>
+                <li id="tab-generator" onclick="showSection('generator')"><i data-lucide="zap"></i> Generator</li>
+                <li id="tab-settings" onclick="showSection('settings')"><i data-lucide="settings"></i> System</li>
+            </ul>
+            <div class="health-indicator" id="healthBox">
+                <div class="status-dot" id="healthDot"></div>
+                <span id="healthText">Checking Status...</span>
+            </div>
+        </nav>
+
+        <main class="content">
+            <section id="vault-section" class="active-section">
+                <header>
+                    <div class="search-bar">
+                        <i data-lucide="search"></i>
+                        <input type="text" id="searchInput" placeholder="Search services..." oninput="handleSearch()">
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn-secondary" onclick="handleExport()"><i data-lucide="download"></i> Export</button>
+                        <button class="btn-primary" onclick="openModal('addModal')">+ New Entry</button>
+                    </div>
+                </header>
+                <div class="password-grid" id="passwordGrid"></div>
+            </section>
+
+            <section id="generator-section" style="display:none;">
+                <div class="glass-card central-card">
+                    <h2>Master Generator</h2>
+                    <div class="gen-display" id="genDisplay">G3n3r@t1ng...</div>
+                    <div class="control-group">
+                        <label>Complexity: <span id="lenLabel">16</span> characters</label>
+                        <input type="range" id="genRange" min="12" max="64" value="16" oninput="updateLenLabel(this.value)">
+                    </div>
+                    <button class="btn-primary" style="width:100%" onclick="quickGenerate()">Generate New Key</button>
+                </div>
+            </section>
+
+            <section id="settings-section" style="display:none;">
+                <div class="glass-card central-card">
+                    <h3>Vault Initialization</h3>
+                    <p style="opacity: 0.6; font-size: 0.9rem; margin-bottom: 20px;">The master password is the only way to decrypt your data. <strong>It cannot be recovered.</strong></p>
+                    <input type="password" id="masterSetupInput" placeholder="Create Master Password">
+                    <button class="btn-primary" style="width:100%" onclick="setMasterPassword()">Initialize Security</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="authModal" class="modal">
+        <div class="modal-content glass-card">
+            <h2 id="authTitle">Authentication Required</h2>
+            <p id="authSubtitle" style="opacity: 0.6; font-size: 0.85rem; margin-bottom: 15px;">Enter your master password to proceed with this action.</p>
+            <input type="password" id="authMasterInput" placeholder="Master Password">
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeModal('authModal')">Abort</button>
+                <button class="btn-primary" id="authConfirmBtn">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="addModal" class="modal">
+        <div class="modal-content glass-card">
+            <h2>Secure New Service</h2>
+            <input type="text" id="addService" placeholder="Service Name (e.g. Amazon)">
+            <input type="email" id="addEmail" placeholder="Associated Email">
+            <div class="control-group">
+                <label>Password Length</label>
+                <input type="number" id="addLength" value="16" min="12">
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeModal('addModal')">Cancel</button>
+                <button class="btn-primary" onclick="handleAddPassword()">Save Entry</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
