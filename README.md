@@ -58,12 +58,20 @@ It demonstrates core backend security concepts such as encryption, hashing, pass
 
 ## 📂 Project Structure
 ```bash
-backend/
-│── main.py # FastAPI application
-│── database.py # Database connection
-│── models.py # SQLAlchemy models
-│── .env # Environment variables (not committed)
-│── requirements.txt
+Securo/
+├─ backend/
+│  ├─ main.py
+│  ├─ models.py
+│  ├─ database.py
+│  ├─ requirements.txt
+│  └─ .env
+├─ frontend/
+│  ├─ index.html
+│  ├─ style.css
+│  └─ script.js
+├─ README.md
+└─ LICENSE
+
 ```
 
 ---
