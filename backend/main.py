@@ -1,3 +1,5 @@
+# bcrypt MUST be < 4.0
+
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import engine, SessionLocal, Base
@@ -10,8 +12,6 @@ from datetime import datetime
 import os, secrets, string, hashlib
 from fastapi.middleware.cors import CORSMiddleware
 
-# ---------------- ENV ----------------
-
 load_dotenv()
 FERNET_KEY = os.getenv("FERNET_KEY")
 if not FERNET_KEY:
@@ -19,7 +19,6 @@ if not FERNET_KEY:
 
 cipher = Fernet(FERNET_KEY.encode())
 
-# bcrypt MUST be < 4.0
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 app = FastAPI(title="Securo Password Manager")
@@ -34,16 +33,12 @@ app.add_middleware(
 
 Base.metadata.create_all(bind=engine)
 
-# ---------------- DB DEP ----------------
-
 def get_db():
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
-
-# ---------------- UTILS ----------------
 
 def hash_master(password: str) -> str:
     """
@@ -80,8 +75,6 @@ def password_strength(password: str):
 def decrypt_password(enc: str):
     return cipher.decrypt(enc.encode()).decode()
 
-# ---------------- SCHEMAS ----------------
-
 class PasswordInput(BaseModel):
     service: str
     email: EmailStr
@@ -109,8 +102,6 @@ class PasswordExportOut(BaseModel):
 
     class Config:
         from_attributes = True
-
-# ---------------- ROUTES ----------------
 
 @app.post("/set-master", tags=["Security"])
 def set_master_password(payload: MasterPasswordInput, db: Session = Depends(get_db)):
